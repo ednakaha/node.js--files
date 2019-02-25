@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='node_modules/jquery/dist/jquery.min.js'></script>
+</head>
+
+<body>
+    <div>
+        <table id='myTable' style="border: 1px solid black;">
+
+
+        </table>
+    </div>
+    <script>
+        jQuery.ajax('http://localhost:8888/student').done(function (response) {
+            $(function () {
+                $.each(response, function (i, item) {
+                    var $tr = $('<tr>').append(
+                        $('<td>').text(item.id),
+                        $('<td>').text(item.host),
+                        $('<td>').text(item.dns_error),
+                    ).appendTo('#myTable');
+                    //   console.log($tr.wrap('<p>').html());
+                });
+            });
+        })    
+    </script>
+</body>
+
+</html>
