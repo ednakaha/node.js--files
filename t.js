@@ -18,36 +18,55 @@ var server = app.listen(PORT || 8080, function () {
     console.log("App now running on port", port);
 });
 
+//app.listen(PORT, function () {
+//    console.log('server started at port ' + PORT)
+//});
 
+//Initiallising connection string
+var dbConfig = {
+    user: 'root',
+    password: '',
+    host: 'localhost',
+    database: 'files'
+};
 
-app.get('/dnserrors', function (req, res) {
-    var mysql = require('mysql');
-    var connection = mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: '',
-        database: 'files'
-    });
+//table id a_i host p_k dns_error
 
+//Function to connect to database and execute query
 
-    connection.connect(function (err) {
-        console.log(err.code);
-        console.log(err.fatal);
-    });
+var executeQuery = function (res, query) {
+    var connection = sql.createConnection(dbConfig);
 
-
-    connection.query('select * from files_link where dns_error is not null', function (error, results, fields) {
-        //  connection.query('select * from files_link', function (error, results, fields) {
+    /*   connection.connect(function (err) {
+           if (err) {
+   
+               console.log("Error while connecting database :- " + err);
+               res.send(err);
+           }
+           else {
+               */
+    connection.connect();
+    // query to the database
+    connection.query(query, function (err, res, fields) {
         connection.end();
-     //   if (error) {
-     //       throw error;
-      //  }
-
-        res.send(results);
+        if (err) {
+            console.log("Error while querying database :- " + err);
+            res.send(err);
+        }
+        else {
+            res.send(res);
+        }
     });
+    //  }
+    //});
+}
 
-
+//GET API
+app.get("/dnserrors", function (req, res) {
+    var query = "select * from [files_link] where dns_error is not null";
+    executeQuery(res, query);
 });
+
 app.get('/file', function (req, res) {
     var mysql = require('mysql');
     var connection = mysql.createConnection({
@@ -57,22 +76,20 @@ app.get('/file', function (req, res) {
         database: 'files'
     });
 
-
-    connection.connect(function (err) {
-        console.log(err.code);
-        console.log(err.fatal);
-    });
+    connection.connect();
 
 
-    connection.query('INSERT INTO files_link (host,dns_error) VALUES ("test12345","noerror1243")', function (error, results, fields) {
+    connection.query('INSERT INTO files_link (host,dns_error) VALUES ("test123","noerror123")', function (error, results, fields) {
         //  connection.query('select * from files_link', function (error, results, fields) {
         connection.end();
         if (error) throw error;
 
         res.send(results);
     });
+
+
 });
-/*
+
 app.get('/test', function (req, res) {
     var lineReader = rl.createInterface({
         input: fs.createReadStream('list.txt')

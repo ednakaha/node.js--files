@@ -1,7 +1,7 @@
 {
   "name": "node.js-files",
   "version": "1.0.0",
-  "description": "",
+  "description": "��#\u0000 \u0000n\u0000o\u0000d\u0000e\u0000.\u0000j\u0000s\u0000-\u0000-\u0000f\u0000i\u0000l\u0000e\u0000s\u0000\r\u0000 \u0000",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
@@ -11,9 +11,18 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "mysql": "^2.16.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.10"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ednakaha/node.js--files.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ednakaha/node.js--files/issues"
+  },
+  "homepage": "https://github.com/ednakaha/node.js--files#readme"
 }
